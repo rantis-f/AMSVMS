@@ -13,17 +13,23 @@ class UserSeeder extends Seeder
     {
         $users = [
             ['name' => 'Aurellia', 'role' => 1],
-            ['name' => 'Putri', 'role' => 2],
-            ['name' => 'Budi', 'role' => 3],
-            ['name' => 'Arsyaningrum', 'role' => 4],
-            ['name' => 'Farisah', 'role' => 5],
             ['name' => 'Ghassani', 'role' => 1],
+            ['name' => 'Rizki', 'role' => 1],
+            ['name' => 'Putri', 'role' => 2],
             ['name' => 'Nabila', 'role' => 2],
+            ['name' => 'Adinda', 'role' => 2],
+            ['name' => 'Budi', 'role' => 3],
             ['name' => 'Najma', 'role' => 3],
+            ['name' => 'Hendra', 'role' => 3],
+            ['name' => 'Arsyaningrum', 'role' => 4],
             ['name' => 'Manika', 'role' => 4],
+            ['name' => 'Dian', 'role' => 4],
+            ['name' => 'Farisah', 'role' => 5],
+            ['name' => 'Laila', 'role' => 5],
+            ['name' => 'Siti', 'role' => 5],
         ];
 
-        foreach ($users as $index => $data) {
+        foreach ($users as $data) {
             User::create([
                 'name' => $data['name'],
                 'email' => strtolower($data['name']) . '@example.com',
