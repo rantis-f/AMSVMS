@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('barang_masuks', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('dcaf_id')->constrained('verifikasi_dcaf');
+            $table->foreignId('dcaf_id')->constrained('verifikasidcaf');
             $table->string('nama');
             $table->integer('jumlah');
             $table->double('berat');
