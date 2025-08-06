@@ -6,25 +6,18 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
+    public function up()
     {
         Schema::create('photos', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('site_id');
-            $table->foreign('site_id')->references('id_site')->on('site')->onDelete('cascade');
-            $table->string('path');
-            $table->string('keterangan')->nullable();
+            $table->string('title')->nullable();
+            $table->text('text')->nullable();
+            $table->string('file_path');
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('photos');
     }
