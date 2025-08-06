@@ -6,24 +6,28 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    /**
+     * Run the migrations.
+     */
     public function up(): void
     {
-        Schema::create('verifikasi_nda', function (Blueprint $table) {
+        Schema::create('verifikasi_dcaf', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('nda_id')->constrained('nda')->onDelete('cascade');
-            $table->string('nama_region')->nullable();
-            $table->string('perusahaan')->nullable();
+            $table->foreignId('verifikasi_nda_id')->constrained('verifikasi_nda')->onDelete('cascade');
             $table->string('file_path')->nullable();
-            $table->string('status')->default('menunggu persetujuan'); // menunggu persetujuan, diterima, ditolak
+            $table->string('status')->default('pending'); // pending, diterima, ditolak
             $table->text('catatan')->nullable();
             $table->timestamp('masa_berlaku')->nullable();
             $table->timestamps();
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
-        Schema::dropIfExists('verifikasi_nda');
+        Schema::dropIfExists('verifikasi_dcaf');
     }
-}; 
+};
