@@ -830,3 +830,12 @@ select:focus,
 .split input {
     width: 100%;
 }
+
+
+.btn-secondary {
+    background-color: #4f52ba; 
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+}

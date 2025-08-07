@@ -204,44 +204,47 @@
             </form>
         </div>
 
-        <div class="section">
-            <header class="header-profile">
-                <h2>{{ __('Hapus Akun') }}</h2>
-                <p style="color: rgba(0, 0, 0, 0.5);">
-                    {{ __('Setelah akun Anda dihapus, semua data dan sumber daya terkait akan dihapus secara permanen.') }}
-                </p>
-            </header>
+            <div class="section">
+    <header class="header-profile">
+        <h2>{{ __('Hapus Akun') }}</h2>
+        <p style="color: rgba(0, 0, 0, 0.5);">
+            {{ __('Setelah akun Anda dihapus, semua data dan sumber daya terkait akan dihapus secara permanen.') }}
+        </p>
+    </header>
 
-            <button type="button" x-data="" x-on:click.prevent="$dispatch('open-modal', 'confirm-user-deletion')"
-                class="btn-primary" style="margin-top: 20px;">
-                {{ __('Hapus Akun') }}
-            </button>
+    <button type="button" onclick="document.getElementById('confirm-delete-modal').style.display='block'"
+        class="btn-delete" style="margin-top: 20px;">
+        {{ __('Hapus Akun') }}
+    </button>
+</div>
 
-            <div x-data="{ show: {{ $errors->userDeletion->isNotEmpty() ? 'true' : 'false' }} }" x-show="show" x-transition
-                class="modal">
-                <div class="modal-content">
-                    <span class="modal-close" x-on:click="$dispatch('close'); show = false">×</span>
-                    <form method="POST" action="{{ route('profile.destroy') }}">
-                        @csrf
-                        @method('DELETE')
+<div id="confirm-delete-modal" class="modal">
+    <div class="modal-content">
+        <h5 style="margin-bottom: 10px;">{{ __('Apakah Anda yakin ingin menghapus akun?') }}</h5>
+        <p style="color: rgba(0, 0, 0, 0.5);">{{ __('Setelah akun dihapus, data Anda tidak bisa dipulihkan.') }}</p>
 
-                        <h2>{{ __('Apakah Anda yakin ingin menghapus akun?') }}</h2>
-                        <p>{{ __('Setelah akun dihapus, data Anda tidak bisa dipulihkan.') }}</p>
+        <form method="POST" action="{{ route('profile.destroy') }}" style="margin-top: 20px;">
+            @csrf
+            @method('DELETE')
 
-                        <label for="password_delete">{{ __('Masukkan kata sandi Anda untuk konfirmasi') }}</label>
-                        <input id="password_delete" name="password_delete" type="password" class="form-control" required>
-                        @if ($errors->userDeletion->has('password_delete'))
-                            <p class="error">{{ $errors->userDeletion->first('password_delete') }}</p>
-                        @endif
-
-                        <div style="margin-top: 20px; text-align: right;">
-                            <button type="button" x-on:click="$dispatch('close'); show = false"
-                                class="btn-secondary">{{ __('Batal') }}</button>
-                            <button type="submit" class="btn-danger">{{ __('Hapus Akun') }}</button>
-                        </div>
-                    </form>
-                </div>
+            <div class="form-group">
+                <label for="password_delete">{{ __('Masukkan kata sandi Anda untuk konfirmasi') }}</label>
+                <input id="password_delete" name="password" type="password" class="form-control" required>
             </div>
+            
+            @if ($errors->userDeletion->has('password'))
+                <p class="error" style="color: red; font-size: 0.9rem;">{{ $errors->userDeletion->first('password') }}</p>
+            @endif
+
+           <div class="button-wrapper" style="justify-content: flex-end; margin-top: 20px;">
+    <button type="button" onclick="document.getElementById('confirm-delete-modal').style.display='none'"
+        class="btn btn-secondary">{{ __('Batal') }}</button>
+    <button type="submit" class="btn btn-delete">{{ __('Hapus Akun') }}</button>
+</div>
+        </form>
+        <span class="close" onclick="document.getElementById('confirm-delete-modal').style.display='none'">&times;</span>
+    </div>
+</div>
         </div>
     </div>
 @endsection
