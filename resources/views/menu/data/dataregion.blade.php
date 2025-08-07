@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Data Region')
-@section('page_title', 'Data Region')
+@section('page_title', $pageTitle ?? 'Data Region')
 
 @section('content')
     <div class="main">
