@@ -108,8 +108,8 @@
                                 <div class="mb-3">
                                     <label>Jenis Site</label>
                                     <select name="jenis_site" class="form-control" required>
-                                        <option value="POP" {{ $site->jenis_site == 'pop' ? 'selected' : '' }}>POP</option>
-                                        <option value="POC" {{ $site->jenis_site == 'poc' ? 'selected' : '' }}>POC</option>
+                                        <option value="POP" {{ $region->jenis_site == 'pop' ? 'selected' : '' }}>POP</option>
+                                        <option value="POC" {{ $region->jenis_site == 'poc' ? 'selected' : '' }}>POC</option>
                                     </select>
                                 </div>
                                 <div class="mb-3">
