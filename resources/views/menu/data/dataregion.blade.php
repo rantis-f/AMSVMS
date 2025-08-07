@@ -29,8 +29,9 @@
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
 
-                                <form id="delete-form-{{ $region->id_region }}" action="{{ route('region.destroy', $region->id_region) }}"
-                                    method="POST" style="display: none;">
+                                <form id="delete-form-{{ $region->id_region }}"
+                                    action="{{ route('region.destroy', $region->id_region) }}" method="POST"
+                                    style="display: none;">
                                     @csrf
                                     @method('DELETE')
                                 </form>
@@ -70,7 +71,8 @@
                                                         onclick="openModal('modalEditSite{{ $site->id_site }}')">
                                                         <i class="fas fa-edit"></i>
                                                     </button>
-                                                    <button class="btn btn-delete btn-sm" onclick="confirmDelete({{ $site->id_site }})">
+                                                    <button class="btn btn-delete btn-sm"
+                                                        onclick="confirmDelete({{ $site->id_site }})">
                                                         <i class="fas fa-trash-alt"></i>
                                                     </button>
 
@@ -105,7 +107,10 @@
                                 </div>
                                 <div class="mb-3">
                                     <label>Jenis Site</label>
-                                    <input type="text" name="jenis_site" class="form-control" required>
+                                    <select name="jenis_site" class="form-control" required>
+                                        <option value="POP" {{ $site->jenis_site == 'pop' ? 'selected' : '' }}>POP</option>
+                                        <option value="POC" {{ $site->jenis_site == 'poc' ? 'selected' : '' }}>POC</option>
+                                    </select>
                                 </div>
                                 <div class="mb-3">
                                     <label>Kode Region</label>
