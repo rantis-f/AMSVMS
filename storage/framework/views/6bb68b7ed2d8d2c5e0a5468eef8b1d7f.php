@@ -20,6 +20,9 @@
     <link rel="stylesheet" href="<?php echo e(asset('css/app.css')); ?>">
     <?php echo $__env->yieldContent('styles'); ?> <!-- Menyertakan style khusus halaman -->
 
+    <!-- alphinejs -->
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
 </head>
 
 <body>
@@ -223,7 +226,7 @@
             Swal.fire({
                 icon: 'error',
                 title: 'Validasi Gagal!',
-                html: `<?php echo implode('<br>', $errors->all()); ?>`,
+                html: <?php echo implode('<br>', $errors->all()); ?>,
                 showConfirmButton: true
             });
         </script>

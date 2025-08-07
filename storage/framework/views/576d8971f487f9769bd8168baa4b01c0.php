@@ -205,46 +205,49 @@
             </form>
         </div>
 
-        <div class="section">
-            <header class="header-profile">
-                <h2><?php echo e(__('Hapus Akun')); ?></h2>
-                <p style="color: rgba(0, 0, 0, 0.5);">
-                    <?php echo e(__('Setelah akun Anda dihapus, semua data dan sumber daya terkait akan dihapus secara permanen.')); ?>
+            <div class="section">
+    <header class="header-profile">
+        <h2><?php echo e(__('Hapus Akun')); ?></h2>
+        <p style="color: rgba(0, 0, 0, 0.5);">
+            <?php echo e(__('Setelah akun Anda dihapus, semua data dan sumber daya terkait akan dihapus secara permanen.')); ?>
 
-                </p>
-            </header>
+        </p>
+    </header>
 
-            <button type="button" x-data="" x-on:click.prevent="$dispatch('open-modal', 'confirm-user-deletion')"
-                class="btn-primary" style="margin-top: 20px;">
-                <?php echo e(__('Hapus Akun')); ?>
+    <button type="button" onclick="document.getElementById('confirm-delete-modal').style.display='block'"
+        class="btn-delete" style="margin-top: 20px;">
+        <?php echo e(__('Hapus Akun')); ?>
 
-            </button>
+    </button>
+</div>
 
-            <div x-data="{ show: <?php echo e($errors->userDeletion->isNotEmpty() ? 'true' : 'false'); ?> }" x-show="show" x-transition
-                class="modal">
-                <div class="modal-content">
-                    <span class="modal-close" x-on:click="$dispatch('close'); show = false">×</span>
-                    <form method="POST" action="<?php echo e(route('profile.destroy')); ?>">
-                        <?php echo csrf_field(); ?>
-                        <?php echo method_field('DELETE'); ?>
+<div id="confirm-delete-modal" class="modal">
+    <div class="modal-content">
+        <h5 style="margin-bottom: 10px;"><?php echo e(__('Apakah Anda yakin ingin menghapus akun?')); ?></h5>
+        <p style="color: rgba(0, 0, 0, 0.5);"><?php echo e(__('Setelah akun dihapus, data Anda tidak bisa dipulihkan.')); ?></p>
 
-                        <h2><?php echo e(__('Apakah Anda yakin ingin menghapus akun?')); ?></h2>
-                        <p><?php echo e(__('Setelah akun dihapus, data Anda tidak bisa dipulihkan.')); ?></p>
+        <form method="POST" action="<?php echo e(route('profile.destroy')); ?>" style="margin-top: 20px;">
+            <?php echo csrf_field(); ?>
+            <?php echo method_field('DELETE'); ?>
 
-                        <label for="password_delete"><?php echo e(__('Masukkan kata sandi Anda untuk konfirmasi')); ?></label>
-                        <input id="password_delete" name="password_delete" type="password" class="form-control" required>
-                        <?php if($errors->userDeletion->has('password_delete')): ?>
-                            <p class="error"><?php echo e($errors->userDeletion->first('password_delete')); ?></p>
-                        <?php endif; ?>
-
-                        <div style="margin-top: 20px; text-align: right;">
-                            <button type="button" x-on:click="$dispatch('close'); show = false"
-                                class="btn-secondary"><?php echo e(__('Batal')); ?></button>
-                            <button type="submit" class="btn-danger"><?php echo e(__('Hapus Akun')); ?></button>
-                        </div>
-                    </form>
-                </div>
+            <div class="form-group">
+                <label for="password_delete"><?php echo e(__('Masukkan kata sandi Anda untuk konfirmasi')); ?></label>
+                <input id="password_delete" name="password" type="password" class="form-control" required>
             </div>
+            
+            <?php if($errors->userDeletion->has('password')): ?>
+                <p class="error" style="color: red; font-size: 0.9rem;"><?php echo e($errors->userDeletion->first('password')); ?></p>
+            <?php endif; ?>
+
+           <div class="button-wrapper" style="justify-content: flex-end; margin-top: 20px;">
+    <button type="button" onclick="document.getElementById('confirm-delete-modal').style.display='none'"
+        class="btn btn-secondary"><?php echo e(__('Batal')); ?></button>
+    <button type="submit" class="btn btn-delete"><?php echo e(__('Hapus Akun')); ?></button>
+</div>
+        </form>
+        <span class="close" onclick="document.getElementById('confirm-delete-modal').style.display='none'">&times;</span>
+    </div>
+</div>
         </div>
     </div>
 <?php $__env->stopSection(); ?>

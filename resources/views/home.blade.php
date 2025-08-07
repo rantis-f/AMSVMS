@@ -14,23 +14,23 @@
                     </div>
                 </div>
 
-                <div class="card-item" @if(auth()->user()->role == '1')
-                onclick="window.location='{{ route('dataregion.index') }}?jenis=POP'" style="cursor: pointer;" @endif>
+               <div class="card-item" @if(auth()->user()->role == '1')
+                onclick="window.location='{{ route('dataregion.index') }}'" style="cursor: pointer;" @endif>
                     <div class="card-icon"><i class="fa-solid fa-building"></i></div>
                     <div class="card-content">
                         <h4>POP</h4>
                         <p>{{ $jumlahJenisSite['POP'] ?? 0 }} data</p>
                     </div>
                 </div>
-
                 <div class="card-item" @if(auth()->user()->role == '1')
-                onclick="window.location='{{ route('dataregion.index') }}?jenis=POC'" style="cursor: pointer;" @endif>
+                onclick="window.location='{{ route('dataregion.index') }}'" style="cursor: pointer;" @endif>
                     <div class="card-icon"><i class="fa-solid fa-building-user"></i></div>
                     <div class="card-content">
                         <h4>POC</h4>
                         <p>{{ $jumlahJenisSite['POC'] ?? 0 }} data</p>
                     </div>
                 </div>
+            </div>
 
         @endif
             <div class="card-section" style="margin-top: 20px;">

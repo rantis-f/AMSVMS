@@ -1,5 +1,5 @@
 <?php $__env->startSection('title', 'Data Region'); ?>
-<?php $__env->startSection('page_title', 'Data Region'); ?>
+<?php $__env->startSection('page_title', $pageTitle ?? 'Data Region'); ?>
 
 <?php $__env->startSection('content'); ?>
     <div class="main">
