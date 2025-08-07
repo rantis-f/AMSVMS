@@ -14,7 +14,7 @@
                 </div>
 
                <div class="card-item" <?php if(auth()->user()->role == '1'): ?>
-                onclick="window.location='<?php echo e(route('dataregion.index')); ?>'" style="cursor: pointer;" <?php endif; ?>>
+                onclick="window.location='<?php echo e(route('dataregion.index')); ?>?jenis=POP'" style="cursor: pointer;" <?php endif; ?>>
                     <div class="card-icon"><i class="fa-solid fa-building"></i></div>
                     <div class="card-content">
                         <h4>POP</h4>
@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 <div class="card-item" <?php if(auth()->user()->role == '1'): ?>
-                onclick="window.location='<?php echo e(route('dataregion.index')); ?>'" style="cursor: pointer;" <?php endif; ?>>
+                onclick="window.location='<?php echo e(route('dataregion.index')); ?>?jenis=POC'" style="cursor: pointer;" <?php endif; ?>>
                     <div class="card-icon"><i class="fa-solid fa-building-user"></i></div>
                     <div class="card-content">
                         <h4>POC</h4>
