@@ -3,8 +3,9 @@
 
 <?php $__env->startSection('content'); ?>
     <div class="main">
-        <button class="btn btn-primary" style="margin-top: 20px; margin-bottom: 20px;"
-            onclick="openModal('modalTambahRegion')">+ Tambah Region</button>
+        <div style="display: flex; gap: 10px; margin-top: 20px; margin-bottom: 20px;">
+            <button class="btn btn-primary" onclick="openModal('modalTambahRegion')">+ Tambah Region</button>
+        </div>
         <div class="card-grid">
             <?php $__currentLoopData = $regions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $region): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <div class="toggle">
@@ -27,8 +28,9 @@
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
 
-                                <form id="delete-form-<?php echo e($region->id_region); ?>" action="<?php echo e(route('region.destroy', $region->id_region)); ?>"
-                                    method="POST" style="display: none;">
+                                <form id="delete-form-<?php echo e($region->id_region); ?>"
+                                    action="<?php echo e(route('region.destroy', $region->id_region)); ?>" method="POST"
+                                    style="display: none;">
                                     <?php echo csrf_field(); ?>
                                     <?php echo method_field('DELETE'); ?>
                                 </form>
@@ -55,31 +57,36 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <?php
+                                            $filterJenis = request()->query('jenis');
+                                        ?>
                                         <?php $__currentLoopData = $region->sites; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $site): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                            <tr>
-                                                <td><?php echo e($site->nama_site); ?></td>
-                                                <td><?php echo e($site->kode_site); ?></td>
-                                                <td><?php echo e($site->jenis_site); ?></td>
-                                                <td><?php echo e($site->kode_region); ?></td>
-                                                <td><?php echo e($site->jml_rack); ?></td>
-                                                <td>
-                                                    <!-- Edit Button -->
-                                                    <button class="btn btn-edit"
-                                                        onclick="openModal('modalEditSite<?php echo e($site->id_site); ?>')">
-                                                        <i class="fas fa-edit"></i>
-                                                    </button>
-                                                    <button class="btn btn-delete btn-sm" onclick="confirmDelete(<?php echo e($site->id_site); ?>)">
-                                                        <i class="fas fa-trash-alt"></i>
-                                                    </button>
+                                            <?php if(!$filterJenis || strtolower($site->jenis_site) === strtolower($filterJenis)): ?>
+                                                <tr>
+                                                    <td><?php echo e($site->nama_site); ?></td>
+                                                    <td><?php echo e($site->kode_site); ?></td>
+                                                    <td><?php echo e($site->jenis_site); ?></td>
+                                                    <td><?php echo e($site->kode_region); ?></td>
+                                                    <td><?php echo e($site->jml_rack); ?></td>
+                                                    <td>
+                                                        <button class="btn btn-edit"
+                                                            onclick="openModal('modalEditSite<?php echo e($site->id_site); ?>')">
+                                                            <i class="fas fa-edit"></i>
+                                                        </button>
+                                                        <button class="btn btn-delete btn-sm"
+                                                            onclick="confirmDelete(<?php echo e($site->id_site); ?>)">
+                                                            <i class="fas fa-trash-alt"></i>
+                                                        </button>
 
-                                                    <form id="delete-form-<?php echo e($site->id_site); ?>"
-                                                        action="<?php echo e(route('site.destroy', $site->id_site)); ?>" method="POST"
-                                                        style="display: none;">
-                                                        <?php echo csrf_field(); ?>
-                                                        <?php echo method_field('DELETE'); ?>
-                                                    </form>
-                                                </td>
-                                            </tr>
+                                                        <form id="delete-form-<?php echo e($site->id_site); ?>"
+                                                            action="<?php echo e(route('site.destroy', $site->id_site)); ?>" method="POST"
+                                                            style="display: none;">
+                                                            <?php echo csrf_field(); ?>
+                                                            <?php echo method_field('DELETE'); ?>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            <?php endif; ?>
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </tbody>
                                 </table>
@@ -103,7 +110,10 @@
                                 </div>
                                 <div class="mb-3">
                                     <label>Jenis Site</label>
-                                    <input type="text" name="jenis_site" class="form-control" required>
+                                    <select name="jenis_site" class="form-control" required>
+                                        <option value="POP">POP</option>
+                                        <option value="POC">POC</option>
+                                    </select>
                                 </div>
                                 <div class="mb-3">
                                     <label>Kode Region</label>
@@ -119,8 +129,6 @@
                         </div>
                     </div>
 
-
-                    <!-- Modal Edit Site -->
                     <?php $__currentLoopData = $region->sites; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $site): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <div id="modalEditSite<?php echo e($site->id_site); ?>" class="modal">
                             <div class="modal-content">
@@ -141,8 +149,10 @@
                                     </div>
                                     <div class="mb-3">
                                         <label>Jenis Site</label>
-                                        <input type="text" name="jenis_site" class="form-control" value="<?php echo e($site->jenis_site); ?>"
-                                            required>
+                                        <select name="jenis_site" class="form-control" required>
+                                            <option value="POP" <?php echo e(strtolower($site->jenis_site) == 'pop' ? 'selected' : ''); ?>>POP</option>
+                                            <option value="POC" <?php echo e(strtolower($site->jenis_site) == 'poc' ? 'selected' : ''); ?>>POC</option>
+                                        </select>
                                     </div>
                                     <div class="mb-3">
                                         <label>Kode Region</label>
@@ -162,7 +172,6 @@
                 </div>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </div>
-        <!-- Modal Tambah Region -->
         <div id="modalTambahRegion" class="modal">
             <div class="modal-content">
                 <span class="close" onclick="closeModal('modalTambahRegion')">&times;</span>
@@ -194,7 +203,6 @@
             </div>
         </div>
 
-        <!-- Modal Edit Region -->
         <?php $__currentLoopData = $regions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $region): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <div id="modalEditRegion<?php echo e($region->id_region); ?>" class="modal">
                 <div class="modal-content">
@@ -233,23 +241,20 @@
     </div>
 
     <script>
-        // Toggle the visibility of the sites table
         function toggleSites(regionCode) {
             const table = document.getElementById('sites' + regionCode);
             if (table.style.display === "none" || table.style.display === "") {
-                table.style.display = "block";  // Show the table
+                table.style.display = "block";
             } else {
-                table.style.display = "none";  // Hide the table
+                table.style.display = "none";
             }
         }
 
-        // Function to close modal
         function closeModal(modalId) {
             const modal = document.getElementById(modalId);
             modal.style.display = "none";
         }
 
-        // Function to open modal
         function openModal(modalId) {
             const modal = document.getElementById(modalId);
             modal.style.display = "block";

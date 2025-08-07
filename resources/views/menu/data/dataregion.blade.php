@@ -5,8 +5,9 @@
 
 @section('content')
     <div class="main">
-        <button class="btn btn-primary" style="margin-top: 20px; margin-bottom: 20px;"
-            onclick="openModal('modalTambahRegion')">+ Tambah Region</button>
+        <div style="display: flex; gap: 10px; margin-top: 20px; margin-bottom: 20px;">
+            <button class="btn btn-primary" onclick="openModal('modalTambahRegion')">+ Tambah Region</button>
+        </div>
         <div class="card-grid">
             @foreach($regions as $region)
                 <div class="toggle">
@@ -58,32 +59,36 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @php
+                                            $filterJenis = request()->query('jenis');
+                                        @endphp
                                         @foreach($region->sites as $site)
-                                            <tr>
-                                                <td>{{ $site->nama_site }}</td>
-                                                <td>{{ $site->kode_site }}</td>
-                                                <td>{{ $site->jenis_site }}</td>
-                                                <td>{{ $site->kode_region }}</td>
-                                                <td>{{ $site->jml_rack }}</td>
-                                                <td>
-                                                    <!-- Edit Button -->
-                                                    <button class="btn btn-edit"
-                                                        onclick="openModal('modalEditSite{{ $site->id_site }}')">
-                                                        <i class="fas fa-edit"></i>
-                                                    </button>
-                                                    <button class="btn btn-delete btn-sm"
-                                                        onclick="confirmDelete({{ $site->id_site }})">
-                                                        <i class="fas fa-trash-alt"></i>
-                                                    </button>
+                                            @if(!$filterJenis || strtolower($site->jenis_site) === strtolower($filterJenis))
+                                                <tr>
+                                                    <td>{{ $site->nama_site }}</td>
+                                                    <td>{{ $site->kode_site }}</td>
+                                                    <td>{{ $site->jenis_site }}</td>
+                                                    <td>{{ $site->kode_region }}</td>
+                                                    <td>{{ $site->jml_rack }}</td>
+                                                    <td>
+                                                        <button class="btn btn-edit"
+                                                            onclick="openModal('modalEditSite{{ $site->id_site }}')">
+                                                            <i class="fas fa-edit"></i>
+                                                        </button>
+                                                        <button class="btn btn-delete btn-sm"
+                                                            onclick="confirmDelete({{ $site->id_site }})">
+                                                            <i class="fas fa-trash-alt"></i>
+                                                        </button>
 
-                                                    <form id="delete-form-{{ $site->id_site }}"
-                                                        action="{{ route('site.destroy', $site->id_site) }}" method="POST"
-                                                        style="display: none;">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                    </form>
-                                                </td>
-                                            </tr>
+                                                        <form id="delete-form-{{ $site->id_site }}"
+                                                            action="{{ route('site.destroy', $site->id_site) }}" method="POST"
+                                                            style="display: none;">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            @endif
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -108,8 +113,8 @@
                                 <div class="mb-3">
                                     <label>Jenis Site</label>
                                     <select name="jenis_site" class="form-control" required>
-                                        <option value="POP" {{ $region->jenis_site == 'pop' ? 'selected' : '' }}>POP</option>
-                                        <option value="POC" {{ $region->jenis_site == 'poc' ? 'selected' : '' }}>POC</option>
+                                        <option value="POP">POP</option>
+                                        <option value="POC">POC</option>
                                     </select>
                                 </div>
                                 <div class="mb-3">
@@ -126,8 +131,6 @@
                         </div>
                     </div>
 
-
-                    <!-- Modal Edit Site -->
                     @foreach($region->sites as $site)
                         <div id="modalEditSite{{ $site->id_site }}" class="modal">
                             <div class="modal-content">
@@ -148,8 +151,10 @@
                                     </div>
                                     <div class="mb-3">
                                         <label>Jenis Site</label>
-                                        <input type="text" name="jenis_site" class="form-control" value="{{ $site->jenis_site }}"
-                                            required>
+                                        <select name="jenis_site" class="form-control" required>
+                                            <option value="POP" {{ strtolower($site->jenis_site) == 'pop' ? 'selected' : '' }}>POP</option>
+                                            <option value="POC" {{ strtolower($site->jenis_site) == 'poc' ? 'selected' : '' }}>POC</option>
+                                        </select>
                                     </div>
                                     <div class="mb-3">
                                         <label>Kode Region</label>
@@ -169,7 +174,6 @@
                 </div>
             @endforeach
         </div>
-        <!-- Modal Tambah Region -->
         <div id="modalTambahRegion" class="modal">
             <div class="modal-content">
                 <span class="close" onclick="closeModal('modalTambahRegion')">&times;</span>
@@ -201,7 +205,6 @@
             </div>
         </div>
 
-        <!-- Modal Edit Region -->
         @foreach($regions as $region)
             <div id="modalEditRegion{{ $region->id_region }}" class="modal">
                 <div class="modal-content">
@@ -240,23 +243,20 @@
     </div>
 
     <script>
-        // Toggle the visibility of the sites table
         function toggleSites(regionCode) {
             const table = document.getElementById('sites' + regionCode);
             if (table.style.display === "none" || table.style.display === "") {
-                table.style.display = "block";  // Show the table
+                table.style.display = "block";
             } else {
-                table.style.display = "none";  // Hide the table
+                table.style.display = "none";
             }
         }
 
-        // Function to close modal
         function closeModal(modalId) {
             const modal = document.getElementById(modalId);
             modal.style.display = "none";
         }
 
-        // Function to open modal
         function openModal(modalId) {
             const modal = document.getElementById(modalId);
             modal.style.display = "block";
