@@ -15,7 +15,7 @@ return new class extends Migration
             $table->string('no_rack', 10)->primary();
             $table->string('kode_region', 10)->nullable();
             $table->string('kode_site', 10);
-            $table->integer('u_total');
+            $table->integer('u');
             $table->unsignedBigInteger('milik')->nullable();
 
             $table->foreign('kode_region')->references('kode_region')->on('region')->onDelete('cascade');
