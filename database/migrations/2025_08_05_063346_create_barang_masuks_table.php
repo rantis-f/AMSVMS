@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('jumlah');
             $table->double('berat');
             $table->text('keterangan');
+            $table->timestamps();
         });
     }
 
