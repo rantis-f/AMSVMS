@@ -323,6 +323,28 @@ class DataController extends Controller
         $sites = Site::all();
         return view('menu.data.dataregion', compact('regions', 'sites'));
     }
+    public function indexPop()
+    {
+        $regions = Region::whereHas('sites', function ($query) {
+            $query->where('jenis_site', 'POP');
+        })->with(['sites' => function ($query) {
+            $query->where('jenis_site', 'POP');
+        }])->get();
+
+        return view('menu.data.dataregionpop', compact('regions'));
+    }
+
+    public function indexPoc()
+    {
+        $regions = Region::whereHas('sites', function ($query) {
+            $query->where('jenis_site', 'POC');
+        })->with(['sites' => function ($query) {
+            $query->where('jenis_site', 'POC');
+        }])->get();
+        
+        return view('menu.data.dataregionpoc', compact('regions'));
+    }
+    
     public function createRegion()
     {
         return view('region.create');

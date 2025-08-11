@@ -89,6 +89,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/jenis-alatukur/{kode_alatukur}', [DataController::class, 'destroyJenisAlatukur'])->name('jenisalatukur.destroy');
 
     Route::get('/menu/data/dataregion', [DataController::class, 'indexRegion'])->name('dataregion.index');
+    Route::get('/data-region', [DataController::class, 'indexRegion'])->name('data.region.index');
+    Route::get('/data-pop', [DataController::class, 'indexPop'])->name('data.pop.index');
+    Route::get('/data-poc', [DataController::class, 'indexPoc'])->name('data.poc.index');
     Route::get('/region/create', [DataController::class, 'createRegion'])->name('region.create');
     Route::post('/region/store', [DataController::class, 'storeRegion'])->name('region.store');
     Route::get('/region/{id_region}/edit', [DataController::class, 'editRegion'])->name('region.edit');
