@@ -28,7 +28,7 @@ return new class extends Migration
             $table->integer('uakhir')->nullable();
             $table->unsignedBigInteger('milik')->nullable();
             $table->text('histori');
-            $table->timestamp('tanggal_perubahan')->now();
+            $table->timestamp('tanggal_perubahan')->useCurrent();
         });
     }
 

@@ -24,7 +24,7 @@ return new class extends Migration
             $table->text('keterangan')->nullable();
             $table->string('kondisi', 20)->nullable();
             $table->text('histori')->nullable();
-            $table->timestamp('tanggal_perubahan');
+            $table->timestamp('tanggal_perubahan')->useCurrent();
 
             $table->foreign('id_alatukur')->references('id_alatukur')->on('listalatukur')->onDelete('cascade');
             $table->foreign('kode_region')->references('kode_region')->on('region')->onDelete('cascade');

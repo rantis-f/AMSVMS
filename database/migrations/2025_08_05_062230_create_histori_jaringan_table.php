@@ -34,7 +34,7 @@ return new class extends Migration
             $table->string('total_corrective_time', 20)->nullable();
             $table->unsignedBigInteger('milik')->nullable();
             $table->text('histori')->nullable();
-            $table->timestamp('tanggal_perubahan')->now();
+            $table->timestamp('tanggal_perubahan')->useCurrent();
 
             $table->foreign('id_jaringan')->references('id_jaringan')->on('listjaringan')->onDelete('cascade');
             $table->foreign('kode_region')->references('kode_region')->on('region')->onDelete('cascade');
