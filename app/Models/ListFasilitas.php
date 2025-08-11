@@ -13,7 +13,7 @@ class ListFasilitas extends Model
 
     protected $table = 'listfasilitas'; 
 
-    public $timestamps = false; // nggak pakai created_at dan updated_at
+    public $timestamps = false;
 
     protected $primaryKey = 'id_fasilitas'; 
 
