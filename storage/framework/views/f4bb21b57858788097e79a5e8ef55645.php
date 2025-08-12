@@ -128,11 +128,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label>Jenis Site</label>
-                                    <select name="jenis_site" class="form-control" required>
-                                        <option value="POP">POP</option>
-                                        <option value="POC">POC</option>
-                                        <option value="Collocation">Collocation</option>
-                                    </select>
+                                    <input type="text" value="POC" class="form-control" readonly required>
                                 </div>
                                 <div class="mb-3">
                                     <label>Kode Region</label>

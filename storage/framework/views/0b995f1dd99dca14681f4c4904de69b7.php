@@ -130,8 +130,7 @@
                                     <label>Jenis Site</label>
                                     <select name="jenis_site" class="form-control" required>
                                         <option value="POP">POP</option>
-                                        <option value="POC">POC</option>
-                                        <option value="Collocation">Collocation</option>
+                                            <option value="Collocation">Collocation</option>
                                     </select>
                                 </div>
                                 <div class="mb-3">
