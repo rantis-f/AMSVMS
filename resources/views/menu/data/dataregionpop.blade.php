@@ -14,7 +14,7 @@
             @foreach($regions as $region)
                 @php
                     // Filter sites sesuai jenis
-                    $filteredSites = collect($region->sites)->filter(function($site) use ($filterJenis) {
+                    $filteredSites = collect($region->sites)->filter(function ($site) use ($filterJenis) {
                         if (!$filterJenis) {
                             return true; // tidak ada filter → semua tampil
                         }
@@ -66,7 +66,7 @@
                     </div>
                     <div class="tables-container show">
                         <div id="sites{{ $region->kode_region }}" style="display: none;">
-                            <div class="table-responsive">
+                            <div class="table-responsive scroll-sites">
                                 <table class="table">
                                     <thead>
                                         <tr>
@@ -79,6 +79,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+
                                         @foreach($filteredSites as $site)
                                             <tr>
                                                 <td>{{ $site->nama_site }}</td>
@@ -130,7 +131,7 @@
                                     <label>Jenis Site</label>
                                     <select name="jenis_site" class="form-control" required>
                                         <option value="POP">POP</option>
-                                            <option value="Collocation">Collocation</option>
+                                        <option value="Collocation">Collocation</option>
                                     </select>
                                 </div>
                                 <div class="mb-3">
@@ -169,8 +170,10 @@
                                     <div class="mb-3">
                                         <label>Jenis Site</label>
                                         <select name="jenis_site" class="form-control" required>
-                                            <option value="POP" {{ strtolower($site->jenis_site) == 'pop' ? 'selected' : '' }}>POP</option>
-                                            <option value="POC" {{ strtolower($site->jenis_site) == 'poc' ? 'selected' : '' }}>POC</option>
+                                            <option value="POP" {{ strtolower($site->jenis_site) == 'pop' ? 'selected' : '' }}>POP
+                                            </option>
+                                            <option value="POC" {{ strtolower($site->jenis_site) == 'poc' ? 'selected' : '' }}>POC
+                                            </option>
                                             <option value="Collocation" {{ strtolower($site->jenis_site) == 'collocation' ? 'selected' : '' }}>Collocation</option>
                                         </select>
                                     </div>
@@ -277,4 +280,21 @@
             document.getElementById(modalId).style.display = "block";
         }
     </script>
+
+    <style>
+        .scroll-sites {
+            max-height: 300px;
+            /* cukup untuk 3-4 baris */
+            overflow-y: auto;
+        }
+
+        /* Biar header table tetap kelihatan */
+        .scroll-sites table thead th {
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 1;
+        }
+    </style>
+
 @endsection

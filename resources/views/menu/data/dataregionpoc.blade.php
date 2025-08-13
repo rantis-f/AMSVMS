@@ -11,6 +11,7 @@
                 $filterJenis = request()->query('jenis') ? strtolower(request()->query('jenis')) : null;
             @endphp
 
+
             @foreach($regions as $region)
                 @php
                     // Filter sites sesuai jenis
@@ -66,7 +67,7 @@
                     </div>
                     <div class="tables-container show">
                         <div id="sites{{ $region->kode_region }}" style="display: none;">
-                            <div class="table-responsive">
+                            <div class="table-responsive scroll-sites">
                                 <table class="table">
                                     <thead>
                                         <tr>
@@ -79,6 +80,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+
                                         @foreach($filteredSites as $site)
                                             <tr>
                                                 <td>{{ $site->nama_site }}</td>
@@ -190,6 +192,7 @@
                     @endforeach
                 </div>
             @endforeach
+
         </div>
 
         {{-- Modal Tambah Region --}}
@@ -276,4 +279,20 @@
             document.getElementById(modalId).style.display = "block";
         }
     </script>
+
+    <style>
+        .scroll-sites {
+            max-height: 300px;
+            /* cukup untuk 3-4 baris */
+            overflow-y: auto;
+        }
+
+        /* Biar header table tetap kelihatan */
+        .scroll-sites table thead th {
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 1;
+        }
+    </style>
 @endsection

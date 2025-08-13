@@ -48,7 +48,7 @@
                     </div>
                     <div class="tables-container show">
                         <div id="sites{{ $region->kode_region }}" style="display: none;">
-                            <div class="table-responsive">
+                            <div class="table-responsive scroll-sites">
                                 <table class="table">
                                     <thead>
                                         <tr>
@@ -152,8 +152,10 @@
                                     <div class="mb-3">
                                         <label>Jenis Site</label>
                                         <select name="jenis_site" class="form-control" required>
-                                            <option value="POP" {{ strtolower($site->jenis_site) == 'pop' ? 'selected' : '' }}>POP</option>
-                                            <option value="POC" {{ strtolower($site->jenis_site) == 'poc' ? 'selected' : '' }}>POC</option>
+                                            <option value="POP" {{ strtolower($site->jenis_site) == 'pop' ? 'selected' : '' }}>POP
+                                            </option>
+                                            <option value="POC" {{ strtolower($site->jenis_site) == 'poc' ? 'selected' : '' }}>POC
+                                            </option>
                                             <option value="Collocation" {{ strtolower($site->jenis_site) == 'collocation' ? 'selected' : '' }}>Collocation</option>
                                         </select>
                                     </div>
@@ -260,4 +262,21 @@
             document.getElementById(modalId).style.display = "block";
         }
     </script>
+
+    <style>
+        .scroll-sites {
+            max-height: 300px;
+            /* tinggi area scroll */
+            overflow-y: auto;
+            /* aktifkan scroll vertikal */
+        }
+
+        .scroll-sites table thead th {
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 1;
+        }
+    </style>
+
 @endsection

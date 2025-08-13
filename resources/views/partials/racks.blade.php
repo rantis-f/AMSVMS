@@ -34,7 +34,7 @@
                 </div>
 
                 <div id="{{ $tableId }}" class="tables-container">
-                    <div class="table table-responsive">
+                    <div class="table table-responsive scroll-list">
                         <table class="table">
                             <thead>
                                 <tr>
@@ -99,5 +99,13 @@
                 </div>
             </div>
         @endforeach
+     <style>
+            .scroll-list {
+                max-height: 300px;
+                /* tinggi kira-kira 3-4 baris */
+                overflow-y: auto;
+                /* aktifkan scroll */
+            }
+        </style>
     </div>
 @endif
