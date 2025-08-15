@@ -14,7 +14,7 @@
             <?php $__currentLoopData = $regions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $region): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <?php
                     // Filter sites sesuai jenis
-                    $filteredSites = collect($region->sites)->filter(function($site) use ($filterJenis) {
+                    $filteredSites = collect($region->sites)->filter(function ($site) use ($filterJenis) {
                         if (!$filterJenis) {
                             return true; // tidak ada filter → semua tampil
                         }
@@ -66,7 +66,7 @@
                     </div>
                     <div class="tables-container show">
                         <div id="sites<?php echo e($region->kode_region); ?>" style="display: none;">
-                            <div class="table-responsive">
+                            <div class="table-responsive scroll-sites">
                                 <table class="table">
                                     <thead>
                                         <tr>
@@ -79,6 +79,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+
                                         <?php $__currentLoopData = $filteredSites; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $site): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <tr>
                                                 <td><?php echo e($site->nama_site); ?></td>
@@ -130,7 +131,7 @@
                                     <label>Jenis Site</label>
                                     <select name="jenis_site" class="form-control" required>
                                         <option value="POP">POP</option>
-                                            <option value="Collocation">Collocation</option>
+                                        <option value="Collocation">Collocation</option>
                                     </select>
                                 </div>
                                 <div class="mb-3">
@@ -169,8 +170,10 @@
                                     <div class="mb-3">
                                         <label>Jenis Site</label>
                                         <select name="jenis_site" class="form-control" required>
-                                            <option value="POP" <?php echo e(strtolower($site->jenis_site) == 'pop' ? 'selected' : ''); ?>>POP</option>
-                                            <option value="POC" <?php echo e(strtolower($site->jenis_site) == 'poc' ? 'selected' : ''); ?>>POC</option>
+                                            <option value="POP" <?php echo e(strtolower($site->jenis_site) == 'pop' ? 'selected' : ''); ?>>POP
+                                            </option>
+                                            <option value="POC" <?php echo e(strtolower($site->jenis_site) == 'poc' ? 'selected' : ''); ?>>POC
+                                            </option>
                                             <option value="Collocation" <?php echo e(strtolower($site->jenis_site) == 'collocation' ? 'selected' : ''); ?>>Collocation</option>
                                         </select>
                                     </div>
@@ -277,6 +280,22 @@
             document.getElementById(modalId).style.display = "block";
         }
     </script>
-<?php $__env->stopSection(); ?>
 
+    <style>
+        .scroll-sites {
+            max-height: 300px;
+            /* cukup untuk 3-4 baris */
+            overflow-y: auto;
+        }
+
+        /* Biar header table tetap kelihatan */
+        .scroll-sites table thead th {
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 1;
+        }
+    </style>
+
+<?php $__env->stopSection(); ?>
 <?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\laragon\www\ex\gitpull\resources\views/menu/data/dataregionpop.blade.php ENDPATH**/ ?>

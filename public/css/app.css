@@ -839,3 +839,8 @@ select:focus,
     padding: 10px;
     border-radius: 5px;
 }
+
+.sidebar {
+    position: fixed;
+    z-index: 9999;
+}
